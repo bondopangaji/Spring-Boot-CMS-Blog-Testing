@@ -1,0 +1,142 @@
+<!--
+The MIT License
+
+Copyright 2021 bondopangaji
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/includes/base :: head"></head>
+
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+		<!-- Preloader -->
+		<div th:replace="/includes/base :: preloader"></div>
+
+		<!-- Navbar -->
+		<nav th:replace="/includes/base :: navbar"></nav>
+
+		<!-- Main Sidebar Container -->
+		<aside th:replace="/includes/base :: sidebar"></aside>
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>CMS Blog</h1>
+						</div>
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item">Home</a></li>
+								<li class="breadcrumb-item">Author Dashboard</a></li>
+								<li class="breadcrumb-item active">Post List</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<!-- /.container-fluid -->
+			</section>
+
+			<!-- Main content -->
+			<section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Post List</h3>
+									<div class="card-tools">
+										<div class="input-group input-group-sm" style="width: 150px;">
+										</div>
+									</div>
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body table-responsive p-0"
+									style="height: 849px;">
+									<table class="table table-head-fixed text-nowrap">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Title</th>
+												<th>Author</th>
+												<th>Category Name</th>
+												<th>Actions</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="post:${list}">
+												<td th:text="${post.id}"></td>
+												<td th:text="${post.title}"></td>
+												<td th:text="${post.author.name}"></td>
+												<td th:text="${post.category.name}"></td>	
+												<td style="display: flex">
+													<form
+														th:action="@{/author-dashboard/edit-post/{id}(id=${post.id})}"
+														style="padding-right: 5px;">
+														<button class="btn btn-info btn-sm">
+															<i class="fas fa-pencil-alt"></i> Edit
+														</button>
+													</form>
+													<form onSubmit="return confirm('Are you sure?')"
+														th:action="@{/author-dashboard/delete-post/{id}(id=${post.id})}"
+														method="POST">
+														<button class="btn btn-danger btn-sm">
+															<i class="fas fa-trash"></i> Delete
+														</button>
+													</form>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<!-- /.card-body -->
+							</div>
+							<!-- /.card -->
+						</div>
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.container-fluid -->
+			</section>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+
+		<footer th:replace="/includes/base :: footer"></footer>
+
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- jQuery -->
+	<script src="../../plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap 4 -->
+	<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="../../dist/js/adminlte.min.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="../../dist/js/demo.js"></script>
+</body>
+
+</html>
